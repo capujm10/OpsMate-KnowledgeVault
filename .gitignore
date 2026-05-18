@@ -1,0 +1,23 @@
+# OS and editor noise
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+
+# Local generated evidence and temporary files
+tmp/
+temp/
+evidence/
+*.log
+*.tmp
+
+# Python and Node cache if future tooling is added
+__pycache__/
+.pytest_cache/
+node_modules/
+
+# Future optional local indexes must remain untracked unless explicitly reviewed
+.rag-index/
+.embeddings/
+
