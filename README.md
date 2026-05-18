@@ -1,41 +1,45 @@
 # OpsMate KnowledgeVault
 
-OpsMate KnowledgeVault is a local-first operational intelligence and troubleshooting knowledge system.
+![Local First](https://img.shields.io/badge/model-local--first-blue)
+![Stability First](https://img.shields.io/badge/focus-stability--first-green)
+![RAG Ready Later](https://img.shields.io/badge/design-rag--ready--later-orange)
 
-It is designed to capture enterprise operational failure knowledge in a structure that is readable by humans today and suitable for lightweight retrieval or RAG later.
+## Overview
 
-This repository is not a generic notes folder, chatbot memory store, vector database platform, or runtime automation system. It is a documentation-first operational knowledge base for support engineering, observability engineering, incident investigation, RCA practice, and AI-assisted operational reasoning.
+OpsMate KnowledgeVault is a local-first operational intelligence and troubleshooting knowledge system. It captures reusable enterprise failure knowledge in a format that is human-readable now and retrieval-ready later.
 
-## Core Purpose
+## Core Identity
 
-OpsMate KnowledgeVault captures reusable operational knowledge from:
+This is not a generic notes dump, chatbot memory store, vector database platform, or runtime automation service. It is a documentation-first operational knowledge base for support engineering, observability reasoning, incident investigation, and RCA practice.
 
-- Enterprise operational failures
-- Observability and telemetry patterns
-- Troubleshooting workflows
-- RCA methodology
-- Support escalation handling
-- Operational runbooks
-- Platform investigation notes
-- Remediation and validation procedures
-- AI-assisted troubleshooting heuristics
+## Key Capabilities
 
-The goal is to make operational experience reusable, searchable, reviewable, and safe to share in a portfolio or interview setting.
+- Structured troubleshooting knowledge records
+- Failure pattern catalog
+- Operational runbook templates
+- RCA methodology and report templates
+- Telemetry interpretation guidance
+- Decision-tree troubleshooting workflows
+- Search-friendly taxonomy and metadata conventions
 
-## Design Principles
+## Architecture Philosophy
 
-- Operational realism: entries should reflect how production incidents are investigated.
-- Human-readable first: Markdown is the source of truth.
-- Local-first: no cloud dependency, background daemon, or hidden sync requirement.
-- Lightweight by default: no vector database, embedding pipeline, Kubernetes, or heavy API layer.
-- RAG-ready later: metadata, headings, links, and taxonomy are structured for future retrieval.
-- Git-friendly: every entry should be reviewable through diffs.
-- Safety-first: no credentials, secrets, customer PII, private hostnames, or production-only identifiers.
-- Enterprise support mindset: entries should help an L2, L3, SRE, platform engineer, or escalation engineer act clearly.
-- Observability-first thinking: logs, metrics, traces, events, health checks, and symptoms should drive investigation.
-- Stability-first evolution: prefer small additions and templates over broad restructures.
+- Local-first and lightweight by default
+- Stability-first evolution with minimal, reversible change
+- Operational realism over theoretical abstraction
+- Governance-aware automation boundaries
+- Observability mindset with evidence-led reasoning
+- Human-supervised workflows with no autonomous remediation
 
-## Repository Map
+## Safety Model
+
+- No credentials, secrets, customer PII, or private production identifiers
+- Sanitized evidence patterns and placeholders required
+- No hidden indexing daemons or runtime automation
+- No cloud dependency assumptions
+- Knowledge entries can describe remediation but must mark high-risk actions clearly
+
+## Repository Structure
 
 ```text
 knowledge/        Curated troubleshooting knowledge and failure pattern catalog.
@@ -50,94 +54,33 @@ references/       Severity model, tags, search, cross-linking, roadmap.
 scripts/          Optional local validation helpers.
 ```
 
-## Start Here
+## Quick Start
 
-1. Read [references/architecture-overview.md](references/architecture-overview.md) for the system model.
-2. Read [knowledge/taxonomy.md](knowledge/taxonomy.md) to understand the vault taxonomy.
-3. Check [knowledge/category-index.md](knowledge/category-index.md) for the operational coverage map.
-4. Use [templates/knowledge-entry.md](templates/knowledge-entry.md) for operational knowledge entries.
-5. Use [templates/failure-pattern.md](templates/failure-pattern.md) for recurring production failure modes.
-6. Use [templates/runbook.md](templates/runbook.md) for repeatable investigation or recovery procedures.
-7. Use [templates/rca-report.md](templates/rca-report.md) for incident learning reports.
-8. Check [governance/safety.md](governance/safety.md) before adding real-world evidence.
+1. Read [references/architecture-overview.md](references/architecture-overview.md).
+2. Read [knowledge/taxonomy.md](knowledge/taxonomy.md).
+3. Use [templates/knowledge-entry.md](templates/knowledge-entry.md) for new entries.
+4. Use [templates/failure-pattern.md](templates/failure-pattern.md), [templates/runbook.md](templates/runbook.md), and [templates/rca-report.md](templates/rca-report.md) for structured artifacts.
 
-## Operational Classification Model
-
-Every substantial entry should include metadata with:
-
-- `id`: stable kebab-case identifier
-- `title`: concise operational title
-- `status`: `draft`, `reviewed`, `validated`, or `deprecated`
-- `domain`: primary technology or operational area
-- `failure_mode`: the main failure type
-- `severity`: `sev1`, `sev2`, `sev3`, `sev4`, or `learning`
-- `environment`: `windows`, `linux`, `docker`, `wsl`, `kubernetes`, `saas`, `network`, `database`, `observability`, or `general`
-- `signals`: logs, metrics, traces, alerts, events, symptoms, or user reports
-- `tags`: search-oriented operational tags
-- `related`: links to related entries, runbooks, RCA notes, or references
-
-See [references/tagging-strategy.md](references/tagging-strategy.md) and [references/severity-classification.md](references/severity-classification.md).
-See [references/operational-classification-model.md](references/operational-classification-model.md) for the full model.
-
-## Naming Conventions
-
-- Use lowercase kebab-case filenames.
-- Prefer one operational concept per file.
-- Start broad indexes with `README.md`.
-- Use stable IDs that can survive file moves.
-- Avoid dates in filenames unless the document is a specific incident or RCA.
-- Keep titles operational and searchable, for example `ssl-certificate-chain-expired.md`.
-
-## Search Strategy
-
-The vault is optimized for simple local search before AI retrieval:
-
-```powershell
-rg -n "tls|certificate|handshake" knowledge runbooks observability troubleshooting rca references
-rg -n "severity: sev2|failure_mode: timeout" knowledge runbooks rca
-rg -n "tags:.*docker" knowledge runbooks troubleshooting
-```
-
-See [references/search-strategy.md](references/search-strategy.md).
-
-## Safety Rules
-
-Do not store:
-
-- Production credentials, tokens, API keys, passwords, or private keys
-- Customer PII or confidential customer names
-- Internal-only URLs, hostnames, IPs, ticket IDs, or screenshots unless sanitized
-- Raw production logs that contain sensitive identifiers
-- Proprietary source code copied from customer or employer systems
-
-Use sanitized evidence blocks and placeholders such as `<service-name>`, `<customer-id>`, `<host>`, and `<trace-id>`.
-
-## Future RAG Compatibility
-
-This repository intentionally does not implement embeddings, indexing, vector databases, agents, or APIs.
-
-Future retrieval can be added later by reading Markdown files, front matter, headings, links, and tags. Until then, Git plus `rg` are the primary search tools.
-
-See [references/rag-readiness.md](references/rag-readiness.md).
-
-## Local Validation
-
-Run the lightweight validator before committing structural changes:
+## Validation
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\validate-vault.ps1
 ```
 
-The script checks required directories, required templates, and obvious sensitive-data patterns. It does not upload data or build an index.
+## Governance
 
-## Ecosystem Fit
+- [AGENTS.md](AGENTS.md)
+- [CONTRIBUTING.md](CONTRIBUTING.md)
+- [LICENSE](LICENSE)
+- [governance/safety.md](governance/safety.md)
+- [governance/contribution-standard.md](governance/contribution-standard.md)
 
-OpsMate KnowledgeVault is intended to complement:
+## Future Direction
 
-- AI-OPS-Toolkit
-- OpsMate-Incident-Lab
-- OpsSight-Observability-Lab
-- ResumeOps
-- Portafolio
+Grow coverage across enterprise troubleshooting domains while preserving documentation-first operation. Keep the vault source-of-truth in Markdown and add local retrieval capabilities only as explicit, lightweight, and source-cited future steps.
 
-This repository stores operational knowledge. Runtime labs, dashboards, incident simulations, and portfolio sites should remain in their own repositories.
+## Ecosystem References
+
+- `../AI-OPS-Toolkit` for workstation diagnostics and operator reliability workflows
+- `../OpsMate-Incident-Lab` for deterministic incident simulation and RCA generation practice
+- `../GitHub/OpsSight-Observability-Lab` for broader observability maturity and incident rehearsal patterns
